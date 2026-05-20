@@ -12,8 +12,6 @@
             --bg-color: #f3f4f6;
             --container-bg: #ffffff;
             --main-title-color: #e67e22; 
-            --btn-backup: #10b981; 
-            --btn-restore: #3b82f6; 
             --btn-pdf: #1f2937; 
             --value-collected: #10b981; 
             --value-expenses: #ef4444; 
@@ -34,7 +32,10 @@
             line-height: 1.5;
         }
 
-        .container { max-width: 600px; margin: 0 auto; }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
         /* --- Header Section --- */
         .top-card {
@@ -46,59 +47,113 @@
             margin-bottom: 20px;
         }
 
-        .logo-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 12px; background-color: #e5e7eb; }
-        .group-name { color: var(--main-title-color); font-size: 24px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+            background-color: #e5e7eb;
+        }
+
+        .group-name {
+            color: var(--main-title-color);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
 
         /* --- Action Buttons Section --- */
-        .action-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; border-radius: 8px; border: none; color: #ffffff; font-weight: 600; font-size: 13px; cursor: pointer; transition: opacity 0.2s; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            background-color: var(--btn-pdf);
+            width: 100%;
+        }
         .btn:hover { opacity: 0.9; }
-        .btn-backup { background-color: var(--btn-backup); }
-        .btn-restore { background-color: var(--btn-restore); }
-        .btn-pdf { background-color: var(--btn-pdf); }
-        .btn-icon { font-size: 1.2rem; margin-bottom: 6px; }
+        .btn-icon { font-size: 1.2rem; margin-right: 8px; }
 
         /* --- Financial Cards Section --- */
-        .financial-card { background-color: #ffffff; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; margin-bottom: 15px; }
-        .card-label { color: var(--text-light); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .financial-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .card-label {
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
         .card-value { font-size: 32px; font-weight: bold; }
         .value-collected { color: var(--value-collected); }
         .value-expenses { color: var(--value-expenses); }
         .value-balance { color: var(--value-balance); }
 
         /* --- Forms Section --- */
-        .form-card { background-color: #ffffff; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); margin-bottom: 20px; }
-        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
-        
+        .form-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px;}
         .text-success { color: var(--value-collected); }
         .text-danger { color: var(--value-expenses); }
-        .text-history { color: var(--text-light); }
 
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 14px; margin-bottom: 4px; color: var(--text-light); font-weight: 500;}
-        input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; }
+        
+        input { 
+            width: 100%; padding: 10px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; font-size: 16px; 
+        }
         input:focus { outline: none; border-color: var(--main-title-color); }
 
-        .submit-btn { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .submit-btn {
+            width: 100%; padding: 12px;
+            border: none; border-radius: 6px;
+            color: white; font-size: 16px; font-weight: 600;
+            cursor: pointer; margin-top: 8px;
+        }
         .btn-add { background-color: var(--value-collected); }
         .btn-exp { background-color: var(--value-expenses); }
 
         /* --- Lists Section --- */
         ul { list-style: none; margin-top: 16px; max-height: 300px; overflow-y: auto; }
-        li { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; }
+        li { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 12px; background: #f9fafb; border: 1px solid var(--border-color);
+            border-radius: 8px; margin-bottom: 8px;
+        }
         .item-info { display: flex; flex-direction: column; }
         .item-name { font-weight: 600; font-size: 15px;}
         .item-date { font-size: 12px; color: var(--text-light); }
         .item-amount { font-weight: 700; font-size: 16px; margin-right: 15px;}
-        
         .delete-btn { background: #fee2e2; color: var(--value-expenses); border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
-        
-        /* History Specific Styles */
-        .history-card { background-color: #f3f4f6; border: 1px dashed var(--text-light); }
-        .restore-btn { background: #d1fae5; color: var(--value-collected); border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; margin-right: 5px;}
-        .clear-history-btn { background: var(--text-light); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer;}
-        #historyList li { background: #e5e7eb; opacity: 0.8; }
 
+        /* Hidden PDF Container */
         #pdfContent { display: none; }
     </style>
 </head>
@@ -106,21 +161,12 @@
 
 <div class="container">
     <div class="top-card">
-        <img src="logo.png" alt="Logo" class="logo-img" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+        <img src="logo1.jpg" alt="Logo" class="logo-img">
         <h1 class="group-name">Girdhari Group</h1>
         
-        <div class="action-buttons">
-            <button class="btn btn-backup" onclick="backupData()">
-                <i class="fas fa-save btn-icon"></i> Backup
-            </button>
-            <input type="file" id="fileInput" accept=".json" style="display: none;">
-            <button class="btn btn-restore" onclick="document.getElementById('fileInput').click()">
-                <i class="fas fa-folder-open btn-icon"></i> Restore
-            </button>
-            <button class="btn btn-pdf" onclick="generatePDF()">
-                <i class="fas fa-file-pdf btn-icon"></i> PDF Report
-            </button>
-        </div>
+        <button class="btn" id="pdfBtn">
+            <i class="fas fa-file-pdf btn-icon"></i> Download PDF Report
+        </button>
     </div>
 
     <div class="financial-card">
@@ -141,7 +187,7 @@
         <div class="form-group"><label>Date</label><input type="date" id="fundDate"></div>
         <div class="form-group"><label>Member Name</label><input type="text" id="memberName" placeholder="Enter name"></div>
         <div class="form-group"><label>Amount (₹)</label><input type="number" id="memberAmount" placeholder="0"></div>
-        <button class="submit-btn btn-add" onclick="addRecord('fund')">Add Fund</button>
+        <button class="submit-btn btn-add" id="addFundBtn">Add Fund</button>
         <ul id="contributionList"></ul>
     </div>
 
@@ -150,32 +196,37 @@
         <div class="form-group"><label>Date</label><input type="date" id="expDate"></div>
         <div class="form-group"><label>Expense Detail</label><input type="text" id="expenseName" placeholder="What was purchased?"></div>
         <div class="form-group"><label>Amount (₹)</label><input type="number" id="expenseAmount" placeholder="0"></div>
-        <button class="submit-btn btn-exp" onclick="addRecord('exp')">Deduct Expense</button>
+        <button class="submit-btn btn-exp" id="addExpBtn">Deduct Expense</button>
         <ul id="expenseList"></ul>
-    </div>
-
-    <div class="form-card history-card">
-        <h2 class="section-title text-history">
-            Deleted History 
-            <button class="clear-history-btn" onclick="clearAllHistory()">Empty Bin</button>
-        </h2>
-        <ul id="historyList"></ul>
     </div>
 </div>
 
 <div id="pdfContent"></div>
 
-<script>
-    // 1. Setup Dates
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // ⚠️ PASTE YOUR COPIED FIREBASE CONFIG SELECTION HERE
+    const firebaseConfig = {
+        apiKey: "AIzaSyCVPQ_rLAh-KIS4XA8sw-5tkS6LWXipTgE",
+        authDomain: "girdhari-group.firebaseapp.com",
+        projectId: "girdhari-group",
+        storageBucket: "girdhari-group.firebasestorage.app",
+        messagingSenderId: "799328897939",
+        appId: "1:799328897939:web:a30684eb3a3f47aad27666"
+    };
+
+    // Initialize Firebase Engine connection
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('fundDate').value = today;
     document.getElementById('expDate').value = today;
 
-    // 2. Load Data from Browser Storage
-    let contributions = JSON.parse(localStorage.getItem('girdhari_ui_funds')) || [];
-    let expenses = JSON.parse(localStorage.getItem('girdhari_ui_expenses')) || [];
-    let historyLog = JSON.parse(localStorage.getItem('girdhari_ui_history')) || []; // The new history array
-    
+    let contributions = [];
+    let expenses = [];
     let totalFund = 0;
     let totalExp = 0;
 
@@ -184,21 +235,39 @@
         return new Date(dateString).toLocaleDateString('en-IN', options);
     }
 
-    // 3. Update the UI
+    // REALTIME CLOUD LISTENER: Triggers instantly across all devices when any data changes
+    function startRealtimeSync() {
+        // Listen to Collection "funds" sorted by date entries descending
+        const fundsQuery = query(collection(db, "funds"), orderBy("date", "desc"));
+        onSnapshot(fundsQuery, (snapshot) => {
+            contributions = [];
+            snapshot.forEach((doc) => {
+                contributions.push({ id: doc.id, ...doc.data() });
+            });
+            updateUI();
+        });
+
+        // Listen to Collection "expenses" sorted by date entries descending
+        const expQuery = query(collection(db, "expenses"), orderBy("date", "desc"));
+        onSnapshot(expQuery, (snapshot) => {
+            expenses = [];
+            snapshot.forEach((doc) => {
+                expenses.push({ id: doc.id, ...doc.data() });
+            });
+            updateUI();
+        });
+    }
+
     function updateUI() {
         totalFund = 0;
         totalExp = 0;
         
         const contList = document.getElementById('contributionList');
         const expList = document.getElementById('expenseList');
-        const histList = document.getElementById('historyList');
-        
         contList.innerHTML = '';
         expList.innerHTML = '';
-        histList.innerHTML = '';
 
-        // Render Contributions
-        contributions.forEach((item, index) => {
+        contributions.forEach((item) => {
             totalFund += item.amount;
             contList.innerHTML += `
                 <li>
@@ -208,13 +277,12 @@
                     </div>
                     <div>
                         <span class="item-amount text-success">₹${item.amount.toLocaleString('en-IN')}</span>
-                        <button class="delete-btn" onclick="moveToHistory('fund', ${index})"><i class="fas fa-trash"></i></button>
+                        <button class="delete-btn" data-id="${item.id}" data-type="funds"><i class="fas fa-trash"></i></button>
                     </div>
                 </li>`;
         });
 
-        // Render Expenses
-        expenses.forEach((item, index) => {
+        expenses.forEach((item) => {
             totalExp += item.amount;
             expList.innerHTML += `
                 <li>
@@ -224,46 +292,29 @@
                     </div>
                     <div>
                         <span class="item-amount text-danger">₹${item.amount.toLocaleString('en-IN')}</span>
-                        <button class="delete-btn" onclick="moveToHistory('exp', ${index})"><i class="fas fa-trash"></i></button>
+                        <button class="delete-btn" data-id="${item.id}" data-type="expenses"><i class="fas fa-trash"></i></button>
                     </div>
                 </li>`;
         });
 
-        // Render History Log
-        if(historyLog.length === 0) {
-            histList.innerHTML = `<p style="text-align:center; color:#9ca3af; font-size:14px; margin-top:10px;">Trash is empty.</p>`;
-        } else {
-            historyLog.forEach((item, index) => {
-                const typeColor = item.originalType === 'fund' ? 'text-success' : 'text-danger';
-                const typeSign = item.originalType === 'fund' ? '+' : '-';
-                
-                histList.innerHTML += `
-                    <li>
-                        <div class="item-info">
-                            <span class="item-name" style="text-decoration: line-through;">${item.name}</span>
-                            <span class="item-date">Orig: ${formatDate(item.date)}</span>
-                        </div>
-                        <div>
-                            <span class="item-amount ${typeColor}">${typeSign}₹${item.amount.toLocaleString('en-IN')}</span>
-                            <button class="restore-btn" onclick="restoreFromHistory(${index})" title="Restore"><i class="fas fa-undo"></i></button>
-                            <button class="delete-btn" onclick="permanentDelete(${index})" title="Delete Forever"><i class="fas fa-times"></i></button>
-                        </div>
-                    </li>`;
-            });
-        }
-
-        // Update Dashboard Numbers
         document.getElementById('totalCollected').innerText = `₹ ${totalFund.toLocaleString('en-IN')}`;
         document.getElementById('totalExpenses').innerText = `₹ ${totalExp.toLocaleString('en-IN')}`;
         document.getElementById('currentBalance').innerText = `₹ ${(totalFund - totalExp).toLocaleString('en-IN')}`;
 
-        // Save to browser memory
-        localStorage.setItem('girdhari_ui_funds', JSON.stringify(contributions));
-        localStorage.setItem('girdhari_ui_expenses', JSON.stringify(expenses));
-        localStorage.setItem('girdhari_ui_history', JSON.stringify(historyLog));
+        // Hook clean listener actions onto newly spawned deletion garbage triggers
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                const button = e.currentTarget;
+                const id = button.getAttribute('data-id');
+                const targetCollection = button.getAttribute('data-type');
+                if (confirm("Delete this record permanently from the Cloud?")) {
+                    await deleteDoc(doc(db, targetCollection, id));
+                }
+            });
+        });
     }
 
-    function addRecord(type) {
+    async function addRecord(type) {
         const isFund = type === 'fund';
         const dateInput = document.getElementById(isFund ? 'fundDate' : 'expDate').value;
         const nameInput = document.getElementById(isFund ? 'memberName' : 'expenseName');
@@ -271,108 +322,25 @@
         
         const name = nameInput.value.trim();
         const amount = parseFloat(amountInput.value);
+        const targetCollection = isFund ? "funds" : "expenses";
 
         if (name && amount > 0 && dateInput) {
-            const record = { date: dateInput, name, amount };
-            if (isFund) contributions.push(record);
-            else expenses.push(record);
-
-            nameInput.value = '';
-            amountInput.value = '';
-            updateUI(); 
+            try {
+                await addDoc(collection(db, targetCollection), {
+                    name: name,
+                    amount: amount,
+                    date: dateInput,
+                    timestamp: new Date().getTime()
+                });
+                nameInput.value = '';
+                amountInput.value = '';
+            } catch (err) {
+                console.error("Cloud Write Error: ", err);
+            }
         } else {
             alert("Please fill in the Date, Name, and Amount!");
         }
     }
-
-    // NEW: Moves items to history instead of deleting them instantly
-    function moveToHistory(type, index) {
-        if (confirm("Move this record to the trash bin?")) {
-            let deletedItem;
-            if (type === 'fund') {
-                deletedItem = contributions.splice(index, 1)[0];
-                deletedItem.originalType = 'fund'; // Remember where it came from
-            } else {
-                deletedItem = expenses.splice(index, 1)[0];
-                deletedItem.originalType = 'exp';
-            }
-            // Add it to the top of the history list
-            historyLog.unshift(deletedItem); 
-            updateUI();
-        }
-    }
-
-    // NEW: Put an item back to its original list
-    function restoreFromHistory(index) {
-        const item = historyLog.splice(index, 1)[0]; // Remove from history
-        
-        // Clean it up and put it back
-        const restoredRecord = { date: item.date, name: item.name, amount: item.amount };
-        
-        if (item.originalType === 'fund') {
-            contributions.push(restoredRecord);
-        } else {
-            expenses.push(restoredRecord);
-        }
-        updateUI();
-    }
-
-    // NEW: Delete a single item forever
-    function permanentDelete(index) {
-        if (confirm("Permanently delete this record? This cannot be undone.")) {
-            historyLog.splice(index, 1);
-            updateUI();
-        }
-    }
-
-    // NEW: Empty the whole trash bin
-    function clearAllHistory() {
-        if (historyLog.length > 0 && confirm("Empty the trash? All deleted items will be gone forever.")) {
-            historyLog = [];
-            updateUI();
-        }
-    }
-
-    function backupData() {
-        if (contributions.length === 0 && expenses.length === 0) {
-            alert("No data to backup yet!");
-            return;
-        }
-        // Backup includes history just in case!
-        const backup = { funds: contributions, expenses: expenses, history: historyLog };
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup));
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "Girdhari_Backup.json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-    }
-
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const data = JSON.parse(e.target.result);
-                if (data.funds && data.expenses) {
-                    contributions = data.funds;
-                    expenses = data.expenses;
-                    if(data.history) historyLog = data.history;
-                    updateUI();
-                    alert("✅ Data restored successfully!");
-                } else {
-                    alert("❌ Invalid backup file format.");
-                }
-            } catch (error) {
-                alert("❌ Error reading backup file.");
-            }
-        };
-        reader.readAsText(file);
-        event.target.value = ''; 
-    });
 
     function generatePDF() {
         if (contributions.length === 0 && expenses.length === 0) {
@@ -390,75 +358,46 @@
                 <h1 style="color: #d35400; margin:0; font-size: 28px;">GIRDHARI GROUP FUND</h1>
                 <p style="color: #666; margin-top:5px;">Report Generated: ${formatDate(new Date())}</p>
             </div>
-            
             <div style="display: flex; justify-content: space-between; background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
                 <div style="text-align:center;"><strong>Total Collected</strong><br><span style="color:#10b981; font-size:20px;">₹${totalFund.toLocaleString('en-IN')}</span></div>
                 <div style="text-align:center;"><strong>Total Expenses</strong><br><span style="color:#ef4444; font-size:20px;">₹${totalExp.toLocaleString('en-IN')}</span></div>
                 <div style="text-align:center;"><strong>Final Balance</strong><br><span style="color:#e67e22; font-size:20px;">₹${(totalFund - totalExp).toLocaleString('en-IN')}</span></div>
             </div>
-
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px;">
                 <thead>
-                    <tr style="background: #10b981; color: white;">
-                        <th colspan="3" style="padding: 10px; text-align: left;">Contributions Log</th>
-                    </tr>
-                    <tr style="background: #e5e7eb; color: #333;">
-                        <th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Date</th>
-                        <th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Member Name</th>
-                        <th style="padding: 8px; text-align: right; border: 1px solid #ccc;">Amount</th>
-                    </tr>
+                    <tr style="background: #10b981; color: white;"><th colspan="3" style="padding: 10px; text-align: left;">Contributions Log</th></tr>
+                    <tr style="background: #e5e7eb; color: #333;"><th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Date</th><th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Member Name</th><th style="padding: 8px; text-align: right; border: 1px solid #ccc;">Amount</th></tr>
                 </thead>
                 <tbody>
-                    ${contributions.map(c => `
-                    <tr>
-                        <td style="padding: 8px; border: 1px solid #ccc;">${formatDate(c.date)}</td>
-                        <td style="padding: 8px; border: 1px solid #ccc;">${c.name}</td>
-                        <td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${c.amount.toLocaleString('en-IN')}</td>
-                    </tr>`).join('')}
+                    ${contributions.map(c => `<tr><td style="padding: 8px; border: 1px solid #ccc;">${formatDate(c.date)}</td><td style="padding: 8px; border: 1px solid #ccc;">${c.name}</td><td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${c.amount.toLocaleString('en-IN')}</td></tr>`).join('')}
                 </tbody>
             </table>
-
             <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                 <thead>
-                    <tr style="background: #ef4444; color: white;">
-                        <th colspan="3" style="padding: 10px; text-align: left;">Expenses Log</th>
-                    </tr>
-                    <tr style="background: #e5e7eb; color: #333;">
-                        <th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Date</th>
-                        <th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Expense Detail</th>
-                        <th style="padding: 8px; text-align: right; border: 1px solid #ccc;">Amount</th>
-                    </tr>
+                    <tr style="background: #ef4444; color: white;"><th colspan="3" style="padding: 10px; text-align: left;">Expenses Log</th></tr>
+                    <tr style="background: #e5e7eb; color: #333;"><th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Date</th><th style="padding: 8px; text-align: left; border: 1px solid #ccc;">Expense Detail</th><th style="padding: 8px; text-align: right; border: 1px solid #ccc;">Amount</th></tr>
                 </thead>
                 <tbody>
-                    ${expenses.map(e => `
-                    <tr>
-                        <td style="padding: 8px; border: 1px solid #ccc;">${formatDate(e.date)}</td>
-                        <td style="padding: 8px; border: 1px solid #ccc;">${e.name}</td>
-                        <td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${e.amount.toLocaleString('en-IN')}</td>
-                    </tr>`).join('')}
+                    ${expenses.map(e => `<tr><td style="padding: 8px; border: 1px solid #ccc;">${formatDate(e.date)}</td><td style="padding: 8px; border: 1px solid #ccc;">${e.name}</td><td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${e.amount.toLocaleString('en-IN')}</td></tr>`).join('')}
                 </tbody>
             </table>
         `;
 
-        // Notice: We don't include the "History" table in the PDF, because it's just a trash bin!
-
         pdfContainer.innerHTML = pdfHTML;
-
-        const opt = {
-            margin:       0.5,
-            filename:     'Girdhari_Group_Report.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(pdfContainer).save().then(() => {
-            pdfContainer.style.display = 'none';
-        });
+        const opt = { margin: 0.5, filename: 'Girdhari_Group_Report.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+        html2pdf().set(opt).from(pdfContainer).save().then(() => { pdfContainer.style.display = 'none'; });
     }
 
-    updateUI();
+    // Event Wireups
+    document.getElementById('addFundBtn').addEventListener('click', () => addRecord('fund'));
+    document.getElementById('addExpBtn').addEventListener('click', () => addRecord('exp'));
+    document.getElementById('pdfBtn').addEventListener('click', generatePDF);
+
+    // Ignite Live cloud listeners synchronization sequence
+    startRealtimeSync();
 </script>
 
 </body>
 </html>
+
+
