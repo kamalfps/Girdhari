@@ -52,6 +52,13 @@
         .btn:hover { opacity: 0.9; }
         .btn-icon { font-size: 1.2rem; margin-right: 8px; }
 
+        /* --- Custom Checkbox Styles for PDF Options --- */
+        .pdf-options { background: #f9fafb; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid var(--border-color); text-align: left; }
+        .pdf-options-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--text-light); }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 15px; font-size: 14px; }
+        .checkbox-group label { cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 500; }
+        .checkbox-group input { cursor: pointer; width: 16px; height: 16px; accent-color: var(--main-title-color); }
+
         /* --- Financial Cards Section --- */
         .financial-card { background-color: #ffffff; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; margin-bottom: 15px; }
         .card-label { color: var(--text-light); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
@@ -69,7 +76,7 @@
 
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 14px; margin-bottom: 4px; color: var(--text-light); font-weight: 500;}
-        input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; }
+        input[type="date"], input[type="text"], input[type="number"] { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; }
         input:focus { outline: none; border-color: var(--main-title-color); }
 
         .submit-btn { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 8px; }
@@ -110,6 +117,15 @@
         <img src="logo1.jpg" alt="Logo" class="logo-img" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
         <h1 class="group-name">Girdhari Group</h1>
         
+        <div class="pdf-options">
+            <p class="pdf-options-title">Select items to include in PDF:</p>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="pdfSummary" checked> Summary Balance</label>
+                <label><input type="checkbox" id="pdfFunds" checked> Contributions</label>
+                <label><input type="checkbox" id="pdfExps" checked> Expenses</label>
+            </div>
+        </div>
+
         <button class="btn" id="pdfBtn">
             <i class="fas fa-file-pdf btn-icon"></i> Download PDF Report
         </button>
@@ -162,7 +178,7 @@
     import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     // --- 1. PIN PROTECTION ---
-    const SECRET_PIN = "1523";
+    const SECRET_PIN = "1234";
 
     window.checkPin = function() {
         const enteredPin = document.getElementById('pinInput').value;
@@ -361,34 +377,61 @@
     document.getElementById('addFundBtn').addEventListener('click', () => window.addRecord('fund'));
     document.getElementById('addExpBtn').addEventListener('click', () => window.addRecord('exp'));
 
-    // --- 7. PDF BUILDER ---
+    // --- 7. DYNAMIC PDF BUILDER ---
     document.getElementById('pdfBtn').addEventListener('click', () => {
+        
+        // Grab what the user checked
+        const incSummary = document.getElementById('pdfSummary').checked;
+        const incFunds = document.getElementById('pdfFunds').checked;
+        const incExps = document.getElementById('pdfExps').checked;
+
+        if (!incSummary && !incFunds && !incExps) {
+            alert("Please select at least one option (Summary, Contributions, or Expenses) to generate the PDF!");
+            return;
+        }
+
         const activeFunds = contributions.filter(c => c.status !== 'deleted');
         const activeExps = expenses.filter(e => e.status !== 'deleted');
         
         let tFund = 0; activeFunds.forEach(f => tFund += f.amount);
         let tExp = 0; activeExps.forEach(e => tExp += e.amount);
 
-        if (activeFunds.length === 0 && activeExps.length === 0) {
-            alert("No records to print!");
+        // Check if there is actual data for the things they selected
+        if (incFunds && !incExps && activeFunds.length === 0) {
+            alert("There are no active contributions to print!");
             return;
         }
-        
+        if (incExps && !incFunds && activeExps.length === 0) {
+            alert("There are no active expenses to print!");
+            return;
+        }
+
         const pdfContainer = document.getElementById('pdfContent');
         pdfContainer.style.display = 'block'; 
         pdfContainer.style.padding = '30px';
         pdfContainer.style.fontFamily = "Arial, sans-serif";
         
+        // Base Title
         let pdfHTML = `
             <div style="text-align: center; margin-bottom: 30px;">
                 <h1 style="color: #d35400; margin:0; font-size: 28px;">GIRDHARI GROUP FUND</h1>
                 <p style="color: #666; margin-top:5px;">Report Generated: ${formatDate(localToday)}</p>
             </div>
+        `;
+
+        // 1. Add Summary if checked
+        if (incSummary) {
+            pdfHTML += `
             <div style="display: flex; justify-content: space-between; background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
                 <div style="text-align:center;"><strong>Total Collected</strong><br><span style="color:#10b981; font-size:20px;">₹${tFund.toLocaleString('en-IN')}</span></div>
                 <div style="text-align:center;"><strong>Total Expenses</strong><br><span style="color:#ef4444; font-size:20px;">₹${tExp.toLocaleString('en-IN')}</span></div>
                 <div style="text-align:center;"><strong>Final Balance</strong><br><span style="color:#e67e22; font-size:20px;">₹${(tFund - tExp).toLocaleString('en-IN')}</span></div>
-            </div>
+            </div>`;
+        }
+
+        // 2. Add Contributions if checked
+        if (incFunds && activeFunds.length > 0) {
+            pdfHTML += `
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px;">
                 <thead>
                     <tr style="background: #10b981; color: white;"><th colspan="3" style="padding: 10px; text-align: left;">Contributions Log</th></tr>
@@ -397,7 +440,12 @@
                 <tbody>
                     ${activeFunds.map(c => `<tr><td style="padding: 8px; border: 1px solid #ccc;">${formatDate(c.date)}</td><td style="padding: 8px; border: 1px solid #ccc;">${c.name}</td><td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${c.amount.toLocaleString('en-IN')}</td></tr>`).join('')}
                 </tbody>
-            </table>
+            </table>`;
+        }
+
+        // 3. Add Expenses if checked
+        if (incExps && activeExps.length > 0) {
+            pdfHTML += `
             <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                 <thead>
                     <tr style="background: #ef4444; color: white;"><th colspan="3" style="padding: 10px; text-align: left;">Expenses Log</th></tr>
@@ -406,12 +454,16 @@
                 <tbody>
                     ${activeExps.map(e => `<tr><td style="padding: 8px; border: 1px solid #ccc;">${formatDate(e.date)}</td><td style="padding: 8px; border: 1px solid #ccc;">${e.name}</td><td style="padding: 8px; text-align: right; border: 1px solid #ccc;">₹${e.amount.toLocaleString('en-IN')}</td></tr>`).join('')}
                 </tbody>
-            </table>
-        `;
+            </table>`;
+        }
 
         pdfContainer.innerHTML = pdfHTML;
         const opt = { margin: 0.5, filename: 'Girdhari_Group_Report.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
-        html2pdf().set(opt).from(pdfContainer).save().then(() => { pdfContainer.style.display = 'none'; });
+        
+        // Generate PDF and hide container again
+        html2pdf().set(opt).from(pdfContainer).save().then(() => { 
+            pdfContainer.style.display = 'none'; 
+        });
     });
 </script>
 
