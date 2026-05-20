@@ -32,22 +32,17 @@
             line-height: 1.5;
         }
 
-        .container { max-width: 600px; margin: 0 auto; display: none; } /* HIDDEN UNTIL UNLOCKED */
-
         /* --- LOGIN SCREEN --- */
         #loginScreen {
-            max-width: 400px;
-            margin: 100px auto;
-            background: white;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            text-align: center;
+            max-width: 400px; margin: 100px auto; background: white; padding: 30px; 
+            border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center;
         }
         #loginScreen h2 { color: var(--main-title-color); margin-bottom: 20px; }
         #pinInput { width: 100%; padding: 12px; font-size: 18px; text-align: center; border: 2px solid var(--border-color); border-radius: 8px; margin-bottom: 15px; letter-spacing: 5px;}
         .login-btn { width: 100%; padding: 12px; background: var(--main-title-color); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
         #loginError { color: var(--value-expenses); font-size: 14px; display: none; margin-top: 10px; }
+        
+        #mainDashboard { display: none; max-width: 600px; margin: 0 auto; }
 
         /* --- Header Section --- */
         .top-card { background-color: var(--container-bg); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; margin-bottom: 20px; }
@@ -57,7 +52,7 @@
         .btn:hover { opacity: 0.9; }
         .btn-icon { font-size: 1.2rem; margin-right: 8px; }
 
-        /* --- Financial Cards --- */
+        /* --- Financial Cards Section --- */
         .financial-card { background-color: #ffffff; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); text-align: center; margin-bottom: 15px; }
         .card-label { color: var(--text-light); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
         .card-value { font-size: 32px; font-weight: bold; }
@@ -65,7 +60,7 @@
         .value-expenses { color: var(--value-expenses); }
         .value-balance { color: var(--value-balance); }
 
-        /* --- Forms --- */
+        /* --- Forms Section --- */
         .form-card { background-color: #ffffff; padding: 20px; border-radius: var(--border-radius); box-shadow: var(--shadow); margin-bottom: 20px; }
         .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
         .text-success { color: var(--value-collected); }
@@ -81,7 +76,7 @@
         .btn-add { background-color: var(--value-collected); }
         .btn-exp { background-color: var(--value-expenses); }
 
-        /* --- Lists --- */
+        /* --- Lists Section --- */
         ul { list-style: none; margin-top: 16px; max-height: 300px; overflow-y: auto; }
         li { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f9fafb; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; }
         .item-info { display: flex; flex-direction: column; }
@@ -102,7 +97,7 @@
 <body>
 
 <div id="loginScreen">
-    <img src="logo1.jpg" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px;" onerror="this.style.display='none'">
+    <img src="logo1.jpg" alt="Logo" style="width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px;" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
     <h2>Girdhari Group Security</h2>
     <p style="color: #6b7280; font-size: 14px; margin-bottom: 15px;">Please enter the PIN to view funds.</p>
     <input type="password" id="pinInput" placeholder="Enter PIN" inputmode="numeric">
@@ -110,9 +105,9 @@
     <p id="loginError">Incorrect PIN. Try again.</p>
 </div>
 
-<div class="container" id="mainDashboard">
+<div id="mainDashboard">
     <div class="top-card">
-        <img src="logo.png" alt="Logo" class="logo-img" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
+        <img src="logo1.jpg" alt="Logo" class="logo-img" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/3135/3135715.png';">
         <h1 class="group-name">Girdhari Group</h1>
         
         <button class="btn" id="pdfBtn">
@@ -154,7 +149,7 @@
     <div class="form-card history-card">
         <h2 class="section-title text-history">
             Trash Bin 
-            <button class="clear-history-btn" id="emptyTrashBtn">Empty Bin</button>
+            <button class="clear-history-btn" onclick="emptyTrash()">Empty Bin</button>
         </h2>
         <ul id="historyList"></ul>
     </div>
@@ -166,191 +161,191 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    // --- 1. SET YOUR SECRET PIN HERE ---
-    const SECRET_PIN = "1234"; 
+    // --- 1. PIN PROTECTION ---
+    const SECRET_PIN = "1523";
 
     window.checkPin = function() {
         const enteredPin = document.getElementById('pinInput').value;
         if (enteredPin === SECRET_PIN) {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainDashboard').style.display = 'block';
-            startRealtimeSync(); // Only start grabbing data AFTER unlock
+            startRealtimeSync(); 
         } else {
             document.getElementById('loginError').style.display = 'block';
             document.getElementById('pinInput').value = '';
         }
     }
 
-    // Allow pressing "Enter" on keyboard to login
     document.getElementById('pinInput').addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            window.checkPin();
-        }
+        if (event.key === "Enter") window.checkPin();
     });
 
-    // --- 2. YOUR SPECIFIC FIREBASE SETUP ---
+    // --- 2. FIREBASE CONFIG ---
     const firebaseConfig = {
-  apiKey: "AIzaSyCVPQ_rLAh-KIS4XA8sw-5tkS6LWXipTgE",
-  authDomain: "girdhari-group.firebaseapp.com",
-  projectId: "girdhari-group",
-  storageBucket: "girdhari-group.firebasestorage.app",
-  messagingSenderId: "799328897939",
-  appId: "1:799328897939:web:a30684eb3a3f47aad27666"
+        apiKey: "AIzaSyCVPQ_rLAh-KIS4XA8sw-5tkS6LWXipTgE",
+        authDomain: "girdhari-group.firebaseapp.com",
+        projectId: "girdhari-group",
+        storageBucket: "girdhari-group.firebasestorage.app",
+        messagingSenderId: "799328897939",
+        appId: "1:799328897939:web:a30684eb3a3f47aad27666"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // ✅ THE DATE BUG FIX: Strict Local Date String (YYYY-MM-DD)
+    // --- 3. FIX DATE TIMEZONE ---
     const d = new Date();
-    const localToday = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const localToday = `${year}-${month}-${day}`;
     
     document.getElementById('fundDate').value = localToday;
     document.getElementById('expDate').value = localToday;
 
-    let allRecords = [];
+    let contributions = [];
+    let expenses = [];
 
-    // ✅ THE DATE DISPLAY FIX: Parses the string directly without timezone jumping
     function formatDate(dateString) {
-        if (!dateString) return '';
+        if(!dateString) return '';
         const parts = dateString.split('-');
-        if (parts.length === 3) {
-            // Force the exact local day, month, year entered in the form
+        if(parts.length === 3) {
             const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
             return dateObj.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         }
-        return dateString;
+        return new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
     }
 
-    // REALTIME CLOUD LISTENER 
+    // --- 4. REALTIME SYNC ---
     function startRealtimeSync() {
-        const q = query(collection(db, "girdhari_data"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
-            allRecords = [];
-            snapshot.forEach((doc) => {
-                allRecords.push({ id: doc.id, ...doc.data() });
-            });
+        // Fetch Funds
+        const fundsQuery = query(collection(db, "funds"), orderBy("date", "desc"));
+        onSnapshot(fundsQuery, (snapshot) => {
+            contributions = [];
+            snapshot.forEach((doc) => contributions.push({ id: doc.id, ...doc.data() }));
+            updateUI();
+        });
+
+        // Fetch Expenses
+        const expQuery = query(collection(db, "expenses"), orderBy("date", "desc"));
+        onSnapshot(expQuery, (snapshot) => {
+            expenses = [];
+            snapshot.forEach((doc) => expenses.push({ id: doc.id, ...doc.data() }));
             updateUI();
         });
     }
 
+    // HTML ROW BUILDERS
+    function createActiveRow(item, colName) {
+        const color = colName === 'funds' ? 'text-success' : 'text-danger';
+        return `
+            <li>
+                <div class="item-info">
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-date">${formatDate(item.date)}</span>
+                </div>
+                <div>
+                    <span class="item-amount ${color}">₹${item.amount.toLocaleString('en-IN')}</span>
+                    <button class="delete-btn" onclick="moveToTrash('${colName}', '${item.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </li>`;
+    }
+
+    function createHistoryRow(item, colName) {
+        const isFund = colName === 'funds';
+        const color = isFund ? 'text-success' : 'text-danger';
+        const sign = isFund ? '+' : '-';
+        return `
+            <li>
+                <div class="item-info">
+                    <span class="item-name" style="text-decoration: line-through;">${item.name}</span>
+                    <span class="item-date">Orig: ${formatDate(item.date)}</span>
+                </div>
+                <div>
+                    <span class="item-amount ${color}">${sign}₹${item.amount.toLocaleString('en-IN')}</span>
+                    <button class="restore-btn" onclick="restoreItem('${colName}', '${item.id}')" title="Restore"><i class="fas fa-undo"></i></button>
+                    <button class="delete-btn" onclick="permDelete('${colName}', '${item.id}')" title="Delete Forever"><i class="fas fa-times"></i></button>
+                </div>
+            </li>`;
+    }
+
     function updateUI() {
-        let totalFund = 0;
-        let totalExp = 0;
+        let totalFund = 0, totalExp = 0, historyCount = 0;
         
         const contList = document.getElementById('contributionList');
         const expList = document.getElementById('expenseList');
         const histList = document.getElementById('historyList');
         
-        contList.innerHTML = '';
-        expList.innerHTML = '';
-        histList.innerHTML = '';
+        contList.innerHTML = ''; expList.innerHTML = ''; histList.innerHTML = '';
 
-        let historyCount = 0;
-
-        allRecords.forEach((item) => {
+        contributions.forEach((item) => {
             if (item.status === 'deleted') {
+                histList.innerHTML += createHistoryRow(item, 'funds');
                 historyCount++;
-                const typeColor = item.type === 'fund' ? 'text-success' : 'text-danger';
-                const typeSign = item.type === 'fund' ? '+' : '-';
-                
-                histList.innerHTML += `
-                    <li>
-                        <div class="item-info">
-                            <span class="item-name" style="text-decoration: line-through;">${item.name}</span>
-                            <span class="item-date">Orig: ${formatDate(item.date)}</span>
-                        </div>
-                        <div>
-                            <span class="item-amount ${typeColor}">${typeSign}₹${item.amount.toLocaleString('en-IN')}</span>
-                            <button class="restore-btn" data-id="${item.id}" title="Restore"><i class="fas fa-undo"></i></button>
-                            <button class="delete-btn perm-del-btn" data-id="${item.id}" title="Delete Forever"><i class="fas fa-times"></i></button>
-                        </div>
-                    </li>`;
-            } 
-            else if (item.type === 'fund') {
+            } else {
                 totalFund += item.amount;
-                contList.innerHTML += `
-                    <li>
-                        <div class="item-info">
-                            <span class="item-name">${item.name}</span>
-                            <span class="item-date">${formatDate(item.date)}</span>
-                        </div>
-                        <div>
-                            <span class="item-amount text-success">₹${item.amount.toLocaleString('en-IN')}</span>
-                            <button class="delete-btn trash-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </li>`;
-            } 
-            else if (item.type === 'exp') {
-                totalExp += item.amount;
-                expList.innerHTML += `
-                    <li>
-                        <div class="item-info">
-                            <span class="item-name">${item.name}</span>
-                            <span class="item-date">${formatDate(item.date)}</span>
-                        </div>
-                        <div>
-                            <span class="item-amount text-danger">₹${item.amount.toLocaleString('en-IN')}</span>
-                            <button class="delete-btn trash-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </li>`;
+                contList.innerHTML += createActiveRow(item, 'funds');
             }
         });
 
-        if (historyCount === 0) {
-            histList.innerHTML = `<p style="text-align:center; color:#9ca3af; font-size:14px; margin-top:10px;">Trash is empty.</p>`;
-        }
+        expenses.forEach((item) => {
+            if (item.status === 'deleted') {
+                histList.innerHTML += createHistoryRow(item, 'expenses');
+                historyCount++;
+            } else {
+                totalExp += item.amount;
+                expList.innerHTML += createActiveRow(item, 'expenses');
+            }
+        });
+
+        if (historyCount === 0) histList.innerHTML = `<p style="text-align:center; color:#9ca3af; font-size:14px; margin-top:10px;">Trash is empty.</p>`;
 
         document.getElementById('totalCollected').innerText = `₹ ${totalFund.toLocaleString('en-IN')}`;
         document.getElementById('totalExpenses').innerText = `₹ ${totalExp.toLocaleString('en-IN')}`;
         document.getElementById('currentBalance').innerText = `₹ ${(totalFund - totalExp).toLocaleString('en-IN')}`;
-
-        attachListeners();
     }
 
-    function attachListeners() {
-        document.querySelectorAll('.trash-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const id = e.currentTarget.getAttribute('data-id');
-                if (confirm("Move this record to the trash bin?")) {
-                    await updateDoc(doc(db, "girdhari_data", id), { status: 'deleted' });
-                }
-            });
-        });
-
-        document.querySelectorAll('.restore-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const id = e.currentTarget.getAttribute('data-id');
-                await updateDoc(doc(db, "girdhari_data", id), { status: 'active' });
-            });
-        });
-
-        document.querySelectorAll('.perm-del-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                const id = e.currentTarget.getAttribute('data-id');
-                if (confirm("Permanently delete this record? This cannot be undone.")) {
-                    await deleteDoc(doc(db, "girdhari_data", id));
-                }
-            });
-        });
+    // --- 5. GLOBAL TRASH FUNCTIONS ---
+    window.moveToTrash = async function(colName, id) {
+        if (confirm("Move this record to the trash bin?")) {
+            await updateDoc(doc(db, colName, id), { status: 'deleted' });
+        }
+    }
+    window.restoreItem = async function(colName, id) {
+        await updateDoc(doc(db, colName, id), { status: 'active' });
+    }
+    window.permDelete = async function(colName, id) {
+        if (confirm("Permanently delete this record? This cannot be undone.")) {
+            await deleteDoc(doc(db, colName, id));
+        }
+    }
+    window.emptyTrash = async function() {
+        if (confirm("Empty the trash? All deleted items will be gone forever from the Cloud.")) {
+            const delFunds = contributions.filter(c => c.status === 'deleted');
+            const delExps = expenses.filter(e => e.status === 'deleted');
+            for(let f of delFunds) await deleteDoc(doc(db, "funds", f.id));
+            for(let e of delExps) await deleteDoc(doc(db, "expenses", e.id));
+        }
     }
 
-    async function addRecord(type) {
-        const dateInput = document.getElementById(type === 'fund' ? 'fundDate' : 'expDate').value;
-        const nameInput = document.getElementById(type === 'fund' ? 'memberName' : 'expenseName');
-        const amountInput = document.getElementById(type === 'fund' ? 'memberAmount' : 'expenseAmount');
+    // --- 6. ADD RECORD ---
+    window.addRecord = async function(type) {
+        const isFund = type === 'fund';
+        const dateInput = document.getElementById(isFund ? 'fundDate' : 'expDate').value;
+        const nameInput = document.getElementById(isFund ? 'memberName' : 'expenseName');
+        const amountInput = document.getElementById(isFund ? 'memberAmount' : 'expenseAmount');
         
         const name = nameInput.value.trim();
         const amount = parseFloat(amountInput.value);
+        const targetCollection = isFund ? "funds" : "expenses";
 
         if (name && amount > 0 && dateInput) {
             try {
-                await addDoc(collection(db, "girdhari_data"), {
-                    type: type,
-                    status: 'active', 
+                await addDoc(collection(db, targetCollection), {
                     name: name,
                     amount: amount,
                     date: dateInput,
+                    status: 'active', // Forces it into active list
                     timestamp: new Date().getTime()
                 });
                 nameInput.value = '';
@@ -363,21 +358,13 @@
         }
     }
 
-    document.getElementById('emptyTrashBtn').addEventListener('click', async () => {
-        const deletedRecords = allRecords.filter(r => r.status === 'deleted');
-        if (deletedRecords.length > 0 && confirm("Empty the trash? All deleted items will be gone forever from the Cloud.")) {
-            for (const record of deletedRecords) {
-                await deleteDoc(doc(db, "girdhari_data", record.id));
-            }
-        }
-    });
+    document.getElementById('addFundBtn').addEventListener('click', () => window.addRecord('fund'));
+    document.getElementById('addExpBtn').addEventListener('click', () => window.addRecord('exp'));
 
-    document.getElementById('addFundBtn').addEventListener('click', () => addRecord('fund'));
-    document.getElementById('addExpBtn').addEventListener('click', () => addRecord('exp'));
-
+    // --- 7. PDF BUILDER ---
     document.getElementById('pdfBtn').addEventListener('click', () => {
-        const activeFunds = allRecords.filter(r => r.type === 'fund' && r.status === 'active');
-        const activeExps = allRecords.filter(r => r.type === 'exp' && r.status === 'active');
+        const activeFunds = contributions.filter(c => c.status !== 'deleted');
+        const activeExps = expenses.filter(e => e.status !== 'deleted');
         
         let tFund = 0; activeFunds.forEach(f => tFund += f.amount);
         let tExp = 0; activeExps.forEach(e => tExp += e.amount);
